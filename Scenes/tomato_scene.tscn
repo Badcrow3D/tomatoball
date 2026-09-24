@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d1je68s5ayuyg"]
+
+[ext_resource type="PackedScene" uid="uid://ckk3ymv1iwmnw" path="res://Mesh/tomatoball1.glb" id="1_r33a5"]
+[ext_resource type="Material" uid="uid://bwkxmoidcfht2" path="res://Materials/tomato_material.tres" id="2_r33a5"]
+
+[node name="TomatoScene" unique_id=947943281 instance=ExtResource("1_r33a5")]
+
+[node name="TomatoDefault" parent="." index="0" unique_id=752345525]
+material_override = ExtResource("2_r33a5")
+surface_material_override/0 = ExtResource("2_r33a5")

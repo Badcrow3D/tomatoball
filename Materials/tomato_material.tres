@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bwkxmoidcfht2"]
+
+[ext_resource type="Shader" uid="uid://cdr3oh44cwrfq" path="res://Materials/tomato_shader.gdshader" id="1_76cit"]
+[ext_resource type="Texture2D" uid="uid://c3wo55m0y86ra" path="res://Images/PaletteColor.png" id="2_5vb2u"]
+[ext_resource type="Texture2D" uid="uid://cvo4025woxdfy" path="res://Images/TomatoFace.png" id="3_mham0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_76cit")
+shader_parameter/texture_base = ExtResource("2_5vb2u")
+shader_parameter/texture_overlay = ExtResource("3_mham0")

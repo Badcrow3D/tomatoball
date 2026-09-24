@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bt6wjsyw6tmfn"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://4l42nfjnmgrd" path="res://Physics/floor_physics.tres" id="1_6gfq0"]
+[ext_resource type="Material" uid="uid://be4w38kat1y7n" path="res://Materials/floor_material.tres" id="2_7ncgk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aiegb"]
+size = Vector3(5, 1, 5)
+
+[node name="TestFloor" type="StaticBody3D" unique_id=1237526350]
+physics_material_override = ExtResource("1_6gfq0")
+
+[node name="FloorCollision" type="CollisionShape3D" parent="." unique_id=1733278032]
+shape = SubResource("BoxShape3D_aiegb")
+debug_fill = false
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1684750035]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+material = ExtResource("2_7ncgk")

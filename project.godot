@@ -1,0 +1,48 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Tomatoball"
+run/main_scene="uid://spm3uhkir814"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/show_image=false
+boot_splash/use_filter=false
+config/icon="uid://br76vuelse6fe"
+config/windows_native_icon="res://Images/TomatoIcon.ico"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+window/stretch/scale=2.0
+window/stretch/scale_mode="integer"
+
+[filesystem]
+
+import/blender/enabled=false
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/lossless_compression/force_png=true
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/directional_shadow/16_bits=false
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/positional_shadow/atlas_16_bits=false
+textures/default_filters/use_nearest_mipmap_filter=true
