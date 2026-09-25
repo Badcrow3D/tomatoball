@@ -1,0 +1,11 @@
+Collision layers
+
+1	all, player balls obstacles floor
+2	player
+3	balls
+4	obstacles
+5	floor
+
+17	player cage
+21	ball or player out of bounds
+25	stuff, computer table box

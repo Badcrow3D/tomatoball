@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://5erwb4sslk61"]
+
+[ext_resource type="Texture2D" uid="uid://c6sbyeqa8ipc" path="res://Images/floor2.png" id="1_te1ym"]
+
+[resource]
+resource_name = "Floor2"
+cull_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+emission_enabled = true
+emission_texture = ExtResource("1_te1ym")

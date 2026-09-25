@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dknarvv7wigcx"]
+
+[ext_resource type="Texture2D" uid="uid://c3wo55m0y86ra" path="res://Images/PaletteColor.png" id="1_g7wn4"]
+
+[resource]
+resource_name = "PaletteMaterial"
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+emission_enabled = true
+emission_texture = ExtResource("1_g7wn4")

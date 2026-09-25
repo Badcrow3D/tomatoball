@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bs72ogkvdd7d6"]
+
+[ext_resource type="Script" uid="uid://7ab6a5dpx5m7" path="res://proto_controller/proto_controller.gd" id="1_ucva2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iof21"]
+height = 3.0
+
+[node name="ProtoController" type="CharacterBody3D" unique_id=877549733]
+script = ExtResource("1_ucva2")
+input_left = "moveleft"
+input_right = "moveright"
+input_forward = "moveforward"
+input_back = "moveback"
+input_jump = "movejump"
+input_sprint = "movesprint"
+input_freefly = "movefly"
+
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=980737700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CapsuleShape3D_iof21")
+
+[node name="Head" type="Node3D" parent="." unique_id=649990654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1874007841]
+fov = 70.0
