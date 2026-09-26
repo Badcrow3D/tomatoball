@@ -24,10 +24,13 @@ extends CharacterBody3D
 @export var input_freefly : String = "freefly"
 @export var input_hold : String = "hold"
 @export var input_throw : String = "throw"
+@export var rotate_up : String = "rotateup"
+@export var rotate_down : String = "rotatedown"
 
 @export_group("Hold Settings")
 @export var GRAB_DISTANCE := 2.5
 @export var HOLD_SMOOTHNESS := 10.0
+@export var ROTATE_AMOUNT := deg_to_rad(15)
 @export var hold_distance := 2.5
 @export var throw_maxtime = 3.0
 @export var throw_maxpower = 10.0
@@ -37,6 +40,7 @@ var look_rotation : Vector2
 var move_speed : float = 0.0
 var freeflying : bool = false
 var holding : bool = false
+var held_basis_offset: Basis	
 var throw_start : float = 0.0
 var throw_end : float = 0.0
 var throw_direction : Vector3 = Vector3.UP
@@ -56,6 +60,7 @@ func _ready() -> void:
 	look_rotation.x = head.rotation.x
 
 func _try_pickup():
+	
 	var viewport := get_viewport()
 	var center := viewport.get_visible_rect().size / 2.0
 	var from := camera.project_ray_origin(center)
@@ -71,6 +76,7 @@ func _try_pickup():
 			held_object = rb
 			hold_distance = camera.global_transform.origin.distance_to(result.position)
 			held_object.freeze = true
+			held_basis_offset = camera.global_transform.basis.inverse() * held_object.global_transform.basis
 
 func _drop_object():
 	if held_object:
@@ -120,10 +126,14 @@ func _physics_process(delta: float) -> void:
 	
 	if can_hold:
 		if held_object:
+			if Input.is_action_just_pressed(rotate_up):
+				held_basis_offset = Basis(Vector3.RIGHT, -ROTATE_AMOUNT) * held_basis_offset
+			elif Input.is_action_just_pressed(rotate_down):
+				held_basis_offset = Basis(Vector3.RIGHT, ROTATE_AMOUNT) * held_basis_offset
 			var target_pos = camera.global_transform.origin + camera.global_transform.basis.z * -hold_distance
 			var new_pos = held_object.global_transform.origin.lerp(target_pos, HOLD_SMOOTHNESS * delta)
 			held_object.global_transform.origin = new_pos
-			held_object.global_transform.basis = camera.global_transform.basis
+			held_object.global_transform.basis = camera.global_transform.basis * held_basis_offset
 	
 	if can_freefly and freeflying:
 		var input_dir := Input.get_vector(input_left, input_right, input_forward, input_back)

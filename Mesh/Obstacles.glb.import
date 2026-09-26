@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b0x14kv343nrx"
-path="res://.godot/imported/Level0.glb-c941711279c966a9c059a9f6b3ba705e.scn"
+uid="uid://bprkgo80vsvsh"
+path="res://.godot/imported/Obstacles.glb-b85da7ff57e7bd2bf8fa0d79dea2c007.scn"
 
 [deps]
 
-source_file="res://Mesh/Level0.glb"
-dest_files=["res://.godot/imported/Level0.glb-c941711279c966a9c059a9f6b3ba705e.scn"]
+source_file="res://Mesh/Obstacles.glb"
+dest_files=["res://.godot/imported/Obstacles.glb-b85da7ff57e7bd2bf8fa0d79dea2c007.scn"]
 
 [params]
 

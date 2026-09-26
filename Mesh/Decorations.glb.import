@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b0x14kv343nrx"
-path="res://.godot/imported/Level0.glb-c941711279c966a9c059a9f6b3ba705e.scn"
+uid="uid://c1qbej14xocaj"
+path="res://.godot/imported/Decorations.glb-d0746dd77c06217a07fa7938ff2d8574.scn"
 
 [deps]
 
-source_file="res://Mesh/Level0.glb"
-dest_files=["res://.godot/imported/Level0.glb-c941711279c966a9c059a9f6b3ba705e.scn"]
+source_file="res://Mesh/Decorations.glb"
+dest_files=["res://.godot/imported/Decorations.glb-d0746dd77c06217a07fa7938ff2d8574.scn"]
 
 [params]
 

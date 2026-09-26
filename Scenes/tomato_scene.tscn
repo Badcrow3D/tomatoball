@@ -3,6 +3,7 @@
 [ext_resource type="PhysicsMaterial" uid="uid://c02y048rda23x" path="res://Physics/ball_physics.tres" id="1_2ntyn"]
 [ext_resource type="Material" uid="uid://bwkxmoidcfht2" path="res://Materials/Tomato.tres" id="1_rtxeu"]
 [ext_resource type="Material" uid="uid://dmddx2vocfxrc" path="res://Materials/TomatoMaterial.tres" id="2_2ntyn"]
+[ext_resource type="Script" uid="uid://b616mj01x1t2c" path="res://Scripts/ball_script.gd" id="2_pxjqc"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o2es2"]
 radius = 0.55011636
@@ -41,8 +42,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3dhb0")
 
-[node name="TomatoRigidbody" type="RigidBody3D" unique_id=522963078]
+[node name="TomatoRigidbody" type="RigidBody3D" unique_id=522963078 groups=["balls"]]
+collision_layer = 4
+collision_mask = 13
 physics_material_override = ExtResource("1_2ntyn")
+script = ExtResource("2_pxjqc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1274320891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7881393e-07, 0, -1.7881393e-07)
@@ -51,3 +55,4 @@ shape = SubResource("SphereShape3D_o2es2")
 [node name="Tomato" type="MeshInstance3D" parent="." unique_id=1911948074]
 material_override = ExtResource("1_rtxeu")
 mesh = SubResource("ArrayMesh_tl4br")
+surface_material_override/0 = ExtResource("1_rtxeu")
