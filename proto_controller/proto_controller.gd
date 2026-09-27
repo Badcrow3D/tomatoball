@@ -122,7 +122,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("reset"): 
 		get_tree().reload_current_scene()
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	
 	if can_hold:
 		if held_object:
