@@ -5,7 +5,9 @@ extends CharacterBody3D
 @export var can_jump : bool = true
 @export var can_sprint : bool = false
 @export var can_freefly : bool = false
-@export var can_hold : bool = true
+var can_hold : bool = true
+var can_throw : bool = false
+var can_place : bool = false
 
 @export_group("Speeds")
 @export var look_speed : float = 0.016
@@ -20,13 +22,18 @@ extends CharacterBody3D
 @export var input_forward : String = "ui_up"
 @export var input_back : String = "ui_down"
 @export var input_jump : String = "ui_accept"
+@export var input_crouch : String = "crouch"
 @export var input_sprint : String = "sprint"
 @export var input_freefly : String = "freefly"
 @export var input_hold : String = "hold"
 @export var input_throw : String = "throw"
 @export var rotate_up : String = "rotateup"
 @export var rotate_down : String = "rotatedown"
+@export var input_special : String = "special"
 
+@export var ball_scene : PackedScene
+@export var ball_location : Vector3
+	
 @export_group("Hold Settings")
 @export var GRAB_DISTANCE := 2.5
 @export var HOLD_SMOOTHNESS := 10.0
@@ -69,19 +76,31 @@ func _try_pickup():
 	var space_state := get_world_3d().direct_space_state
 	var result := space_state.intersect_ray(PhysicsRayQueryParameters3D.create(from, to))
 	
-	#if result and result.collider.name == "Ball":
-	if result:
-		var rb = result.collider as RigidBody3D
-		if rb:
-			held_object = rb
-			hold_distance = camera.global_transform.origin.distance_to(result.position)
-			held_object.freeze = true
-			held_basis_offset = camera.global_transform.basis.inverse() * held_object.global_transform.basis
+	print(result.collider.name)
+	
+	if result and result.collider.is_in_group("holdable"):
+		if result.collider.is_in_group("throwable"):
+			var rb = result.collider as RigidBody3D
+			if rb:
+				held_object = rb
+				hold_distance = camera.global_transform.origin.distance_to(result.position)
+				held_object.freeze = true
+		elif result.collider.is_in_group("placeable"):
+			var rb = result.collider as RigidBody3D
+			if rb:
+				held_object = rb
+				hold_distance = camera.global_transform.origin.distance_to(result.position)
+				held_object.freeze = true
 
 func _drop_object():
 	if held_object:
 		held_object.freeze = false
 		held_object = null
+		
+func _spawn_ball():
+	var ball = ball_scene.instantiate()
+	get_parent().add_child(ball)
+	ball.global_position = ball_location
 
 func _unhandled_input(event: InputEvent) -> void:
 
@@ -98,7 +117,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			enable_freefly()
 		else:
 			disable_freefly()
+	
+	if Input.is_action_just_pressed("special"): 
+		_spawn_ball()
+	
+	if Input.is_action_just_pressed("reset"): 
+		get_tree().reload_current_scene()
 
+func _physics_process(delta: float) -> void:
+	
 	if can_hold and Input.is_action_just_pressed(input_hold):
 		if held_object:
 			_drop_object()
@@ -113,16 +140,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if held_object and Input.is_action_just_released(input_throw):		
 		throw_end = Time.get_ticks_msec()
 		throw_direction = -camera.global_transform.basis.z
-		throw_amount = throw_maxpower * (((throw_end - throw_start) * 0.001 ) / throw_maxtime)
+		var throw_time = clampf(throw_end - throw_start, 0, throw_maxtime * 1000) * 0.001
+		throw_amount = throw_maxpower * (throw_time / throw_maxtime)
+		print(throw_amount)
 		throw_object = held_object
 		_drop_object()		
 		throw_object.apply_impulse(throw_direction * throw_amount)
 		return
-	
-	if Input.is_action_just_pressed("reset"): 
-		get_tree().reload_current_scene()
-
-func _process(delta: float) -> void:
 	
 	if can_hold:
 		if held_object:
@@ -192,28 +216,3 @@ func capture_mouse():
 func release_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
-func check_input_mappings():
-	if can_move and not InputMap.has_action(input_left):
-		push_error("Movement disabled. No InputAction found for input_left: " + input_left)
-		can_move = false
-	if can_move and not InputMap.has_action(input_right):
-		push_error("Movement disabled. No InputAction found for input_right: " + input_right)
-		can_move = false
-	if can_move and not InputMap.has_action(input_forward):
-		push_error("Movement disabled. No InputAction found for input_forward: " + input_forward)
-		can_move = false
-	if can_move and not InputMap.has_action(input_back):
-		push_error("Movement disabled. No InputAction found for input_back: " + input_back)
-		can_move = false
-	if can_jump and not InputMap.has_action(input_jump):
-		push_error("Jumping disabled. No InputAction found for input_jump: " + input_jump)
-		can_jump = false
-	if can_sprint and not InputMap.has_action(input_sprint):
-		push_error("Sprinting disabled. No InputAction found for input_sprint: " + input_sprint)
-		can_sprint = false
-	if can_freefly and not InputMap.has_action(input_freefly):
-		push_error("Freefly disabled. No InputAction found for input_freefly: " + input_freefly)
-		can_freefly = false
-	if can_hold and not InputMap.has_action(input_hold):
-		push_error("Hold disabled. No InputAction found for input_hold: " + input_hold)
-		can_hold = false

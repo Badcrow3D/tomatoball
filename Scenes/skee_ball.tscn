@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://oahqg1x43kea"]
+
+[ext_resource type="Script" uid="uid://b616mj01x1t2c" path="res://Scripts/ball_script.gd" id="1_6ux5q"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8y3hr"]
+margin = 0.02
+radius = 0.15
+
+[node name="SkeeBall" type="RigidBody3D" unique_id=237719872 groups=["holdable", "throwable"]]
+script = ExtResource("1_6ux5q")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1198655899]
+radius = 0.15
+radial_segments = 16
+rings = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=636305389]
+shape = SubResource("SphereShape3D_8y3hr")
